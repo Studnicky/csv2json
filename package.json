@@ -1,0 +1,46 @@
+{
+	"name": "csv2json",
+	"description": "Import CSV, export JSON",
+	"config": {
+		"src": "./src/index.js",
+		"sonar_local_token": ""
+	},
+	"version": "0.0.0",
+	"main": "$npm_package_config_src",
+	"private": true,
+	"scripts": {
+		"start": "node $npm_package_config_src",
+		"eslint": "eslint . --env node --cache --no-inline-config",
+		"debug": "node --inspect-brk=1337 $npm_package_config_src",
+		"test": "JEST_WATCH=1 node --inspect --inspect-port=1337 node_modules/.bin/jest --forceExit --runInBand --detectOpenHandles",
+		"sonar": "sonar-scanner -X -Dsonar.projectKey=csv2Json -Dsonar.sources=$npm_package_config_src -Dsonar.exclusions=node_modules/** -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$npm_package_config_sonar_token"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:github.com/Studnicky/csv2Json.git"
+	},
+	"contributors": [
+		{
+			"name": "Andrew Studnicky",
+			"email": "a.j.studnicky@gmail.com",
+			"url": "https://github.com/Studnicky"
+		}
+	],
+	"license": "UNLICENSED",
+	"devDependencies": {
+		"eslint": "^7.26.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-prettier": "^3.4.0",
+		"jest": "^26.6.3",
+		"node-dev": "^7.0.0",
+		"prettier": "^2.3.0",
+		"sonar-scanner": "^3.1.0"
+	},
+	"dependencies": {
+		"dotenv": "^9.0.2",
+		"jsonschema": "^1.4.0"
+	},
+	"//": {
+		"csvParser": "https://www.npmjs.com/package/csv-parser"
+	}
+}
