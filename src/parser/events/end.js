@@ -1,6 +1,6 @@
 async function end() {
 	//	Export any remaining batch
-	await this.exportBatch;
+	await this.exportBatch(this.batchNumber);
 	this.logger.trace(`${this.constructor.name}.end`, 'Complete');
 }
 
