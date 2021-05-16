@@ -1,5 +1,7 @@
 'use strict';
 
+const { logger } = require('../config');
+
 const cmd = {
 	clear: '\x1b[0m',
 	bright: '\x1b[1m',
@@ -26,7 +28,8 @@ const cmd = {
 	bWhite: '\x1b[47m'
 };
 
-module.exports = {
+//	Might include metadata such as job#, correlationID, pod#, etc
+const loggerInstances = {
 	console: {
 		trace: (title, ...args) => {
 			console.debug(`${cmd.fWhite}${cmd.bCyan}${title}${cmd.clear}`, ...args);
@@ -56,3 +59,6 @@ module.exports = {
 		fatal: () => {}
 	}
 };
+
+//	Select instance by ENV
+module.exports = loggerInstances[logger.instance];

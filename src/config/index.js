@@ -12,12 +12,16 @@ const envConfig = dotenv.config({
 const app = require('./app');
 const importConfig = require('./import');
 const exportConfig = require('./export');
+const parserConfig = require('./parser');
+const loggerConfig = require('./logger');
 
 //  Create config from ENV
 const config = {
 	...app,
 	import: importConfig,
-	export: exportConfig[app.env]
+	export: exportConfig,
+	parser: parserConfig,
+	logger: loggerConfig[app.env]
 };
 
 module.exports = config;

@@ -1,21 +1,27 @@
-const fs = require('fs').promises;
+const fs = require('fs');
 const path = require('path');
 const rootPath = path.dirname(require.main.filename);
-const logger = require('./logger').console;
+const logger = require('./logger');
 
 const {
 	export: { exportPath }
 } = require('./config');
-async function createDirectory() {
-	const targetPath = path.resolve(rootPath, exportPath);
+//	While there is an async fs implementation, it's not considered stable.  cb-wrap is safer.
+function createDirectory() {
+	const targetPath = path.resolve(rootPath, '../', exportPath);
 
-	try {
-		await fs.mkdir(targetPath, { recursive: true });
-	} catch (err) {
-		if (err.code !== 'EEXIST') {
-			logger.error(err.code, err);
-		}
-	}
+	return new Promise((resolve, reject) => {
+		fs.mkdir(targetPath, (err) => {
+			if (err) {
+				if (err.code !== 'EEXIST') {
+					logger.error(`Create Directory failed with ${err.code}`, err);
+					return reject(err);
+				}
+			}
+			logger.info(`Output Directory Created`, `${targetPath}`);
+			resolve();
+		});
+	});
 }
 
 module.exports = createDirectory;
